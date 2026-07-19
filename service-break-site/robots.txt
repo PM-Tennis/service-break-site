@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://service-break.com/sitemap.xml
