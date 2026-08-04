@@ -64,6 +64,12 @@ body{background:#01391F;font-family:system-ui,-apple-system,"Segoe UI",sans-seri
 .legal{padding:0 20px 22px;font-size:12px;color:#7c8b82;text-align:center}
 .legal a{color:#3E6B00}
 .pad{height:78px}
+/* Operator ruling 2026-08-03: the copy and the two badges CENTRE. `center`
+   replaces `space-between`, which pinned them to opposite edges. The bar stays
+   FIXED — requirements §7's "fixed footer promoting the app, entire footer
+   tappable" is unamended, and the safe-area belt stays with it.
+   Note the gap changes role: at space-between it was a floor never reached, so
+   12px is now the ACTUAL separation between a text run and two badges. */
 .appfoot{position:fixed;left:0;right:0;bottom:0;background:#01391F;z-index:10;text-decoration:none;
   padding:12px 20px calc(12px + env(safe-area-inset-bottom));
   display:flex;align-items:center;justify-content:center;gap:12px}
