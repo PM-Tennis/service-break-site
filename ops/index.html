@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Ops — Service Break</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<!-- NO analytics on /ops/. This section is the operator's own tool; counting his
+     visits to the reporting page would put the operator inside his own numbers. -->
+<style>
+  :root{
+    --green:#01391F; --green-2:#015929; --lime:#C8E05A;
+    --ink:#01391F; --muted:#5a6e60; --faint:#8fa79a;
+    --line:#e6eae7; --bg:#f7f8f7; --card:#fff;
+    --warn:#8a6d0b; --bad:#a8321f;
+  }
+  *{margin:0;box-sizing:border-box}
+  body{font-family:Manrope,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);
+       -webkit-font-smoothing:antialiased;line-height:1.5}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px 80px}
+
+  header{background:var(--green);color:#fff;padding:18px 0;margin-bottom:26px}
+  header .wrap{padding-bottom:0;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  header h1{font-size:17px;font-weight:800;letter-spacing:-.2px}
+  header .crumb{font-size:12px;color:#9fc0ae}
+  header .spacer{flex:1}
+  header .meta{font-size:12px;color:#9fc0ae;font-variant-numeric:tabular-nums}
+
+  .gate{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;max-width:420px;margin:60px auto}
+  .gate h2{font-size:15px;font-weight:700;margin-bottom:6px}
+  .gate p{font-size:13px;color:var(--muted);margin-bottom:14px}
+  .gate input{width:100%;padding:10px 12px;font-size:14px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+              border:1px solid var(--line);border-radius:8px;margin-bottom:10px}
+  .gate button{width:100%;padding:10px;font-size:14px;font-weight:700;font-family:inherit;
+               background:var(--green);color:#fff;border:0;border-radius:8px;cursor:pointer}
+  .gate .err{font-size:13px;color:var(--bad);margin-top:10px;display:none}
+
+  .controls{display:flex;gap:8px;align-items:center;margin-bottom:22px;flex-wrap:wrap}
+  .controls button{font-family:inherit;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;
+                   border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer}
+  .controls button.on{background:var(--green);border-color:var(--green);color:#fff}
+  .controls .spacer{flex:1}
+  .controls .ghost{border:0;background:none;color:var(--faint);font-size:12px;cursor:pointer;text-decoration:underline}
+
+  h2.sec{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);
+         margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h2.sec:first-of-type{margin-top:0}
+  h2.sec span{text-transform:none;letter-spacing:0;font-weight:400;color:var(--faint);font-size:12px;margin-left:8px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column}
+  .card .label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+  .card .val{font-size:34px;font-weight:800;letter-spacing:-1px;margin:6px 0 2px;font-variant-numeric:tabular-nums}
+  .card .val.sm{font-size:24px}
+  .card .sub{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .card .caveat{font-size:11.5px;color:var(--warn);margin-top:auto;padding-top:10px;line-height:1.45}
+  .card .caveat.hard{color:var(--bad)}
+  .card.na .val{color:var(--faint)}
+
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{text-align:left;font-size:13px;padding:9px 14px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);background:#fbfcfb}
+  tr:last-child td{border-bottom:0}
+  td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  td.note{color:var(--muted);font-size:12px}
+  tr.dim td{color:var(--faint)}
+
+  .notes{margin-top:12px;font-size:12px;color:var(--muted)}
+  .notes li{margin:5px 0 5px 18px}
+  .empty{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:22px;
+         font-size:13px;color:var(--muted)}
+  .empty strong{color:var(--ink);font-weight:700}
+  footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--faint)}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <h1>Service Break</h1>
+  <span class="crumb">/ops/ · summary</span>
+  <span class="spacer"></span>
+  <span class="meta" id="stamp"></span>
+</div></header>
+
+<div class="wrap">
+
+  <!-- ── token gate ─────────────────────────────────────────────── -->
+  <div class="gate" id="gate">
+    <h2>Operator token</h2>
+    <p>Held for this browser tab only. Never placed in the address bar, so it stays out of history and referrers.</p>
+    <input id="tok" type="password" autocomplete="off" spellcheck="false" placeholder="OPS_TOKEN">
+    <button id="go">Load</button>
+    <div class="err" id="err"></div>
+  </div>
+
+  <!-- ── dashboard ──────────────────────────────────────────────── -->
+  <div id="dash" hidden>
+
+    <div class="controls">
+      <button data-days="7">7 days</button>
+      <button data-days="30" class="on">30 days</button>
+      <button data-days="90">90 days</button>
+      <span class="spacer"></span>
+      <button class="ghost" id="refresh">Refresh</button>
+      <button class="ghost" id="forget">Forget token</button>
+    </div>
+
+    <h2 class="sec">Launch health</h2>
+    <div class="grid" id="health"></div>
+
+    <h2 class="sec">Gate decision <span>— what the payment-gate choice depends on</span></h2>
+    <div id="gatedec"></div>
+
+    <h2 class="sec">Diagnostics <span>— tells you something is broken, not that something is happening</span></h2>
+    <div id="diag"></div>
+
+    <footer id="foot"></footer>
+  </div>
+</div>
+
+<script>
+(function(){
+  var API = "https://service-break.onrender.com/v1/ops/summary";
+  var KEY = "sb_ops_token";           // sessionStorage: dies with the tab
+  var days = 30, data = null;
+
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+  var num = function(n){ return (n===null||n===undefined||isNaN(n)) ? "—" : Number(n).toLocaleString(); };
+
+  function token(){ try { return sessionStorage.getItem(KEY) || ""; } catch(e){ return ""; } }
+  function setToken(t){ try { t ? sessionStorage.setItem(KEY,t) : sessionStorage.removeItem(KEY); } catch(e){} }
+
+  // ── card builders ──────────────────────────────────────────────
+  function card(o){
+    var c = ['<div class="card'+(o.na?" na":"")+'">'];
+    c.push('<div class="label">'+esc(o.label)+'</div>');
+    c.push('<div class="val'+(o.small?" sm":"")+'">'+(o.na?"n/a":esc(o.value))+'</div>');
+    if (o.sub) c.push('<div class="sub">'+esc(o.sub)+'</div>');
+    if (o.caveat) c.push('<div class="caveat'+(o.hard?" hard":"")+'">'+esc(o.caveat)+'</div>');
+    c.push('</div>');
+    return c.join("");
+  }
+
+  function rows(obj, order){
+    if (!obj) return "";
+    var keys = order || Object.keys(obj).sort(function(a,b){ return obj[b]-obj[a]; });
+    return keys.filter(function(k){ return k in obj; }).map(function(k){
+      return "<tr><td>"+esc(k)+'</td><td class="n">'+num(obj[k])+"</td></tr>";
+    }).join("");
+  }
+
+  // ── render ─────────────────────────────────────────────────────
+  function render(d){
+    data = d;
+    var dev = d.devices || {}, plat = dev.by_platform || {};
+    var armed = d.armed || {}, al = d.alerts || {};
+    var win = (al.in_window) || {}, disp = win.by_disposition || {};
+    var ttf = al.first_delivered_by_device_hours || {};
+
+    var native = (plat.ios||0) + (plat.android||0);
+    var delivered = disp.delivered || 0, failed = disp.failed || 0;
+    var attempted = delivered + failed;
+    var failRate = attempted ? (failed/attempted*100) : null;
+
+    // ── launch health ────────────────────────────────────────────
+    $("health").innerHTML = [
+      card({ label:"Downloads", value:num(native),
+             sub:"iOS "+num(plat.ios||0)+" · Android "+num(plat.android||0),
+             caveat:"Native device records only. "+num(plat.web||0)+" web sessions excluded — opening the site creates a device row. Store consoles are the authority." }),
+      card({ label:"Armed devices", value:num(armed.any),
+             sub:"override "+num(armed.via_override)+" · global "+num(armed.via_global),
+             caveat:"Point-in-time, not a stock. Overrides are deleted when a match leaves the board, so this falls to zero when the board empties overnight." }),
+      card({ label:"Messages delivered", value:num(delivered),
+             sub:"last 24h "+num((al.last_24h||{}).delivered),
+             caveat:"An Expo ticket, not a delivery receipt — it means the push service accepted the message. Includes web in-page renders." }),
+      card({ label:"Failure rate", value: failRate===null ? "—" : failRate.toFixed(1)+"%", small:true,
+             sub:num(failed)+" failed of "+num(attempted)+" attempted",
+             hard: failRate!==null && failRate >= 5,
+             caveat: failRate===null ? "No attempts in window."
+                   : (failRate>=5 ? "Above 5%. send_error is populated and has never been read — one query answers it."
+                                  : "send_error is populated if you want the causes.") })
+    ].join("");
+
+    // ── gate decision ────────────────────────────────────────────
+    var perDev = native ? (delivered/native) : null;
+    $("gatedec").innerHTML =
+      '<div class="grid">' +
+      card({ label:"Alerts per device", value: perDev===null ? "—" : perDev.toFixed(1), small:true,
+             sub:"delivered ÷ native devices, over "+d.window_days+" days",
+             caveat:"Crude — it divides by every native device, not by devices that armed anything." }) +
+      card({ label:"Time to first alert", value: (ttf.p50===null||ttf.p50===undefined) ? "—" : ttf.p50+"h", small:true,
+             sub:"median · p90 "+(ttf.p90===undefined?"—":ttf.p90+"h")+" · n="+num(ttf.n),
+             caveat:"Only devices that received an alert are in the sample. Rows whose first delivery predates the device record are silently excluded." }) +
+      card({ label:"Retention", na:true, value:"",
+             caveat:"Needs repeat-visit data. Nothing records app opens today." }) +
+      card({ label:"Matches armed per device", na:true, value:"",
+             caveat:"The thesis metric. Needs arming history; overrides are last-write-wins and pruned." }) +
+      '</div>' +
+      '<div class="empty" style="margin-top:12px"><strong>Two of the four are not measurable yet.</strong> ' +
+      'The payment-gate decision rests on retention and concurrent arming, and neither is recorded. ' +
+      'Both come from behaviour the backend can see but does not log.</div>';
+
+    // ── diagnostics ──────────────────────────────────────────────
+    var dispOrder = ["delivered","failed","pending","suppressed_quiet","suppressed_snooze",
+                     "suppressed_league","suppressed_no_original","no_candidates","suppressed_settings"];
+    var known = {};
+    dispOrder.forEach(function(k){ known[k]=1; });
+    var extras = Object.keys(disp).filter(function(k){ return !known[k]; });
+
+    var meaning = {
+      suppressed_settings:"legacy — three causes in one bucket, pre-R-4",
+      suppressed_league:"NOT MEASURABLE while global settings are off — a zero here means not-measured",
+      no_candidates:"nobody armed for this event. Not a suppression",
+      pending:"cannot be interpreted — same value for no-token and gate-closed",
+      suppressed_no_original:"a correction with no delivered original. Not fatigue",
+      failed:"send_error holds the cause",
+      delivered:"push accepted, or web rendered in-page"
+    };
+
+    var dispRows = dispOrder.concat(extras).filter(function(k){ return k in disp; }).map(function(k){
+      return '<tr'+(disp[k]===0?' class="dim"':'')+'><td>'+esc(k)+'</td>'+
+             '<td class="n">'+num(disp[k])+'</td>'+
+             '<td class="note">'+esc(meaning[k]||"")+'</td></tr>';
+    }).join("");
+
+    $("diag").innerHTML =
+      '<table><thead><tr><th>Disposition</th><th style="text-align:right">Rows</th><th>What it means</th></tr></thead>' +
+      '<tbody>'+dispRows+'</tbody></table>' +
+      '<div style="height:12px"></div>' +
+      '<table><thead><tr><th>Delivered by type</th><th style="text-align:right">Count</th></tr></thead>' +
+      '<tbody>'+rows(win.by_type_delivered)+'</tbody></table>' +
+      '<div class="notes"><ul>' +
+        (al.notes||[]).map(function(n){ return "<li>"+esc(n)+"</li>"; }).join("") +
+      '</ul></div>';
+
+    $("stamp").textContent = new Date(d.generated_at).toISOString().replace("T"," ").slice(0,19) + "Z";
+    $("foot").textContent =
+      "Window " + d.window_days + " days · " + num(win.events) + " events · " +
+      num(dev.total) + " device rows (" + num(dev.with_push_token) + " with a push token) · " +
+      "generated " + new Date(d.generated_at).toISOString() + " · " +
+      "figures carry the caveats shown; none is a bare number.";
+
+    $("gate").hidden = true;
+    $("dash").hidden = false;
+  }
+
+  // ── fetch ──────────────────────────────────────────────────────
+  function load(){
+    var t = token();
+    if (!t) return;
+    $("err").style.display = "none";
+    fetch(API + "?k=" + encodeURIComponent(t) + "&days=" + days, {
+      cache:"no-store", referrerPolicy:"no-referrer"
+    })
+    .then(function(r){
+      if (r.status === 404) throw new Error("Rejected. The token is wrong, or OPS_TOKEN is unset on the backend — the endpoint returns 404 for both, deliberately.");
+      if (!r.ok) throw new Error("Backend returned " + r.status + ".");
+      return r.json();
+    })
+    .then(render)
+    .catch(function(e){
+      setToken("");
+      $("dash").hidden = true;
+      $("gate").hidden = false;
+      $("err").textContent = e.message;
+      $("err").style.display = "block";
+    });
+  }
+
+  // ── wiring ─────────────────────────────────────────────────────
+  $("go").addEventListener("click", function(){
+    var v = $("tok").value.trim();
+    if (!v) return;
+    setToken(v); $("tok").value = ""; load();
+  });
+  $("tok").addEventListener("keydown", function(e){ if (e.key === "Enter") $("go").click(); });
+
+  Array.prototype.forEach.call(document.querySelectorAll(".controls [data-days]"), function(b){
+    b.addEventListener("click", function(){
+      Array.prototype.forEach.call(document.querySelectorAll(".controls [data-days]"),
+        function(x){ x.classList.remove("on"); });
+      b.classList.add("on");
+      days = parseInt(b.dataset.days, 10);
+      load();
+    });
+  });
+  $("refresh").addEventListener("click", load);
+  $("forget").addEventListener("click", function(){
+    setToken(""); data = null;
+    $("dash").hidden = true; $("gate").hidden = false;
+  });
+
+  if (token()) load();
+})();
+</script>
+
+</body>
+</html>
