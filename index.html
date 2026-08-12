@@ -64,12 +64,15 @@ body{background:#01391F;font-family:system-ui,-apple-system,"Segoe UI",sans-seri
 .legal{padding:0 20px 22px;font-size:12px;color:#7c8b82;text-align:center}
 .legal a{color:#3E6B00}
 .pad{height:78px}
-/* Operator ruling 2026-08-03: the copy and the two badges CENTRE. `center`
+/* Operator ruling 2026-08-03: the copy and the badge slot CENTRE. `center`
    replaces `space-between`, which pinned them to opposite edges. The bar stays
    FIXED — requirements §7's "fixed footer promoting the app, entire footer
    tappable" is unamended, and the safe-area belt stays with it.
    Note the gap changes role: at space-between it was a floor never reached, so
-   12px is now the ACTUAL separation between a text run and two badges. */
+   12px is now the ACTUAL separation between the text run and the badge slot.
+   SB-M.1 2026-08-11: the Google Play pill was removed. The app is live on the
+   App Store only; /app-promo/ says "Coming soon to Google Play", and an
+   unqualified Play pill here claimed an availability that does not exist. */
 .appfoot{position:fixed;left:0;right:0;bottom:0;background:#01391F;z-index:10;text-decoration:none;
   padding:12px 20px calc(12px + env(safe-area-inset-bottom));
   display:flex;align-items:center;justify-content:center;gap:12px}
@@ -125,7 +128,7 @@ body{background:#01391F;font-family:system-ui,-apple-system,"Segoe UI",sans-seri
 
 <a class="appfoot" href="/app-promo/">
   <span>Get the app</span>
-  <span class="badges"><b>App&nbsp;Store</b><b>Google&nbsp;Play</b></span>
+  <span class="badges"><b>App&nbsp;Store</b></span>
 </a>
 
 </body>
