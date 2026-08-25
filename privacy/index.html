@@ -31,7 +31,7 @@
 <body>
 <header><a href="/"><img src="/logo.svg" alt="Service Break"></a></header>
 <h1>Privacy Policy</h1>
-<p class="eff">Effective August 9, 2026</p>
+<p class="eff">Effective August 25, 2026</p>
 <p>Service Break sends you notifications about live tennis matches. This policy explains what information the app handles and why. It's short because we collect very little.</p>
 <p><strong>This policy applies to everyone, everywhere.</strong> Service Break is available worldwide, and what follows describes how we handle your data wherever you are. Some countries give you additional rights on top of what is written here — where they do, those rights apply to you and we honour them.</p>
 
@@ -44,8 +44,11 @@
 <p><strong>The country you connect from.</strong> When the app contacts our servers, we store which country the connection came from — <strong>the country only, never a city, an area, or your IP address.</strong> We use it to know which privacy rules apply to you, because some countries require us to ask your permission before doing things that other countries do not. <strong>Our servers never see your IP address at all</strong> — Cloudflare works out the country at the edge of its network and passes us two letters.</p>
 <p><strong>Match data is public.</strong> Scores and match states shown in the app are public sports information; nothing about the matches comes from you.</p>
 <p><strong>Diagnostics.</strong> The app keeps a small technical log on your device only, to help us fix problems. <strong>It never leaves your device and we never see it.</strong> It is a different thing from the usage recording described below.</p>
-<p><strong>How you use the app.</strong> When you arm a match, remove one, favourite a player, set a snooze or set quiet hours, <strong>we record that it happened</strong> — the action, the match it applied to, and the time. <strong>We do not record what you look at, how long you spend, or anything you type.</strong> This is kept for 180 days and it is how we decide which features are worth building.</p>
-<p><strong>In the European Economic Area and the United Kingdom we only do this if you have agreed to analytics.</strong> If you have not been asked yet, or you said no, <strong>we record none of it.</strong></p>
+<p><strong>How you use the app.</strong> When you arm a match, remove one, favourite a player, set a snooze or set quiet hours, <strong>we record that it happened</strong> — the action, the match it applied to, and the time. This is how we decide which features are worth building.</p>
+<p><strong>Two systems record it and they keep it for different lengths of time.</strong> Our own servers keep the record for <strong>180 days</strong>. <strong>Google Analytics for Firebase</strong> also receives it and keeps it for <strong>14 months</strong>, processing it for us so we can see patterns across everyone who uses the app rather than one device at a time.</p>
+<p><strong>Firebase also records some things on its own, without us asking it to</strong> — that you opened the app for the first time, that a session started, how long you were using it, which screens you saw, your device model, its operating system version, and an approximate location worked out from your IP address. <strong>Google does not store your IP address</strong>, and <strong>no advertising identifier is collected</strong> — the app is built without the component that would make one available.</p>
+<p><strong>In the European Economic Area and the United Kingdom none of that happens unless you have agreed to analytics.</strong> If you have not been asked yet, or you said no, <strong>neither system records anything</strong> — Firebase is switched off in the app before it can collect, and our own servers write nothing.</p>
+<p><strong>You can change your mind at any time</strong>, in the app under Privacy. Turning it off switches Firebase off and stops our own recording, from that moment on. <strong>It does not undo what was already recorded</strong> — to have that removed, email us with the identifier shown in the app.</p>
 <p><strong>Separately, and wherever you are, we record the dates your device used the app.</strong> That is the same thing our server logs already show, and we keep it to understand whether people come back.</p>
 
 <h2>Website visitors</h2>
@@ -59,7 +62,7 @@
 <tr><td>Device identifier, push token, your settings</td><td>To send you the alerts you asked for</td><td><strong>To perform the service you requested.</strong> Without this data the app cannot deliver an alert</td></tr>
 <tr><td>The country you connect from</td><td>To know which privacy rules apply to you, so we ask your permission where the law requires it and do not pester you where it does not</td><td><strong>Our legitimate interest</strong> in applying the right rules to the right people</td></tr>
 <tr><td>Server and delivery records</td><td>To keep the service running, diagnose failures, prevent abuse, and understand whether people come back</td><td><strong>Our legitimate interest</strong> in operating a working service</td></tr>
-<tr><td>How you use the app</td><td>To understand which features people use, so we can decide what to improve and how the app should be priced</td><td><strong>Our legitimate interest</strong> in building a product people want</td></tr>
+<tr><td>How you use the app</td><td>To understand which features people use, so we can decide what to improve and how the app should be priced. <strong>In the EEA and the UK we do this only with your consent.</strong></td><td><strong>Our legitimate interest</strong> in building a product people want</td></tr>
 <tr><td>Website visit counts</td><td>To understand how the site is used and improve it</td><td><strong>Our legitimate interest</strong> in improving the site</td></tr>
 </table>
 <p>Under the EU GDPR and the UK GDPR these are Article 6(1)(b), performance of a contract, and Article 6(1)(f), legitimate interests. Other countries name these reasons differently and some require your consent instead. <strong>Where the law where you live requires consent for something we do, we will ask you for it before we do it</strong> — and until we have asked, we will not.</p>
@@ -74,12 +77,12 @@
 
 <h2>Who processes data for us</h2>
 <p><strong>Seven service providers handle data solely to run Service Break.</strong> The app and this website are served by different companies, so it is worth being clear which does what.</p>
-<p><strong>For the app:</strong> <strong>Google Firebase</strong> (anonymous sign-in and push delivery), <strong>Apple</strong> (push delivery to iPhone and iPad), <strong>Expo</strong> (push delivery, and a check for app updates each time the app opens), <strong>Cloudflare</strong> (routes every request from the app to our servers, and works out which country it came from), and <strong>Render</strong> (our server and database hosting).</p>
+<p><strong>For the app:</strong> <strong>Google Firebase</strong> (anonymous sign-in, push delivery, and analytics), <strong>Apple</strong> (push delivery to iPhone and iPad), <strong>Expo</strong> (push delivery, and a check for app updates each time the app opens), <strong>Cloudflare</strong> (routes every request from the app to our servers, and works out which country it came from), and <strong>Render</strong> (our server and database hosting).</p>
 <p><strong>For this website:</strong> <strong>GitHub</strong> (hosts these pages, so it receives a request each time you open one) and <strong>Plausible</strong> (visit counts). <strong>Cloudflare is not involved in the website</strong> and Firebase, Apple, Expo and Render are not involved in it either.</p>
 <p>Each receives only what its job requires.</p>
 
 <h2>Where your data goes</h2>
-<p><strong>Wherever you are in the world, your data is transferred to and stored in the United States.</strong> We are a US company and our providers are US companies, except where noted below. If you are outside the United States, using Service Break means your data crosses a border.</p>
+<p><strong>Wherever you are in the world, your data is transferred to and stored in the United States.</strong> We are a US company and our providers are US companies, except where noted below. If you are outside the United States, using Service Break means your data crosses a border. <strong>Analytics data goes to Google in the United States</strong>, under the same clauses.</p>
 <p><strong>Cloudflare runs a global network</strong>, so a request from the app reaches a Cloudflare server near you before being passed to ours. Your IP address is handled there and does not reach us.</p>
 <p>Where the UK GDPR or the EU GDPR applies to you, those transfers are made under the European Commission's Standard Contractual Clauses (and the UK Addendum) in our agreements with those providers. <strong>Website visit counts are the exception</strong> — Plausible is an EU company and processes that data on EU infrastructure.</p>
 
@@ -90,7 +93,7 @@
 <p><strong>Wherever you are, you can ask us to do these things and we will:</strong> give you a copy of the data we hold about you, correct it, delete it, stop using it, or send it to you in a portable form. You can also object to our using your data where we rely on our legitimate interest.</p>
 <p>Depending on where you live, your local law may give you more than this — the EU and UK GDPR, US state privacy laws, Brazil's LGPD, Canada's PIPEDA, Australia's Privacy Act, India's DPDP Act and others each add their own. <strong>Where your law gives you a right we have not listed, you still have it.</strong></p>
 <p>One honest limit: <strong>we cannot identify you from your data.</strong> There is no account and no name attached to anything we hold. To act on a request we need the identifier shown in the app — and that identifier belongs to <strong>one installation on one device</strong>, so a request reaches the data for that installation only. If you use Service Break on more than one device, each has its own identifier. <strong>If you have reinstalled the app, the earlier installation's identifier is gone and we have no way to find its data</strong> — it is not linked to you, and it ages out on its own.</p>
-<p><strong>You can also object to our recording how you use the app.</strong> Email us with the identifier shown in the app and we will stop.</p>
+<p><strong>You can also object to our recording how you use the app.</strong> Email us with the identifier shown in the app and we will stop. <strong>You can also switch it off yourself, in the app under Privacy</strong> — that stops both our own recording and Firebase.</p>
 <p><strong>You can also complain to a regulator.</strong> In the UK that is the Information Commissioner's Office (<a href="https://ico.org.uk/make-a-complaint/">ico.org.uk</a>). In the EU it is the supervisory authority in the country where you live or work. <strong>Most countries have an equivalent authority and you are free to go to yours.</strong> You do not have to contact us first, though we would rather you did.</p>
 <p>We aim to answer any request within 30 days, and will always answer within 90.</p>
 
