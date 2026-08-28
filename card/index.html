@@ -13,12 +13,20 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
 <!-- Privacy-friendly analytics by Plausible.
+     IDENTICAL to the snippet on the five existing shells — same script ID, same
+     init call. A variant form here would be a second install to maintain and a
+     second thing to verify.
+
      THE ORDER ON THIS PAGE IS THE WHOLE POINT. The snippet loads FIRST and the
      redirect fires AFTER it has had a chance to send the pageview. A bare
      <meta http-equiv="refresh" content="0"> would frequently outrun the request
      and the scan would go uncounted — which is the one thing this page exists
      to do. -->
-<script defer data-domain="service-break.com" src="https://plausible.io/js/script.outbound-links.file-downloads.js"></script>
+<script async src="https://plausible.io/js/pa-BmhhJHoNsCG_SmbmTqPbz.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
 
 <style>
   html,body{height:100%;margin:0}
@@ -57,7 +65,11 @@
      The 150 ms delay is deliberate and is the minimum that reliably lets the
      Plausible request leave before navigation. Shorter risks losing the very
      pageview this page exists to record; longer is a visible stall on a card
-     someone is holding. */
+     someone is holding.
+
+     `location.replace` rather than `location.href`: the back button should
+     return the visitor to wherever they were, not to this page, which would
+     bounce them forward again. */
   setTimeout(function () { window.location.replace("/"); }, 150);
 </script>
 
