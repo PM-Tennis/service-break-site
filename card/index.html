@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- NOINDEX is not optional. This path exists only as a QR target; indexed, it
+     would compete with the home page for the same content and split any ranking
+     signal the site earns. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#01391F">
+<title>Service Break</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<!-- Privacy-friendly analytics by Plausible.
+     IDENTICAL to the snippet on the five existing shells — same script ID, same
+     init call. A variant form here would be a second install to maintain and a
+     second thing to verify.
+
+     THE ORDER ON THIS PAGE IS THE WHOLE POINT. The snippet loads FIRST and the
+     redirect fires AFTER it has had a chance to send the pageview. A bare
+     <meta http-equiv="refresh" content="0"> would frequently outrun the request
+     and the scan would go uncounted — which is the one thing this page exists
+     to do. -->
+<script async src="https://plausible.io/js/pa-BmhhJHoNsCG_SmbmTqPbz.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
+<style>
+  html,body{height:100%;margin:0}
+  body{background:#01391F;color:#fff;
+       font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+       display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
+  img{width:min(260px,70vw);height:auto}
+  p{margin-top:22px;font-size:14px;color:#9fc0ae}
+  a{color:#C8E05A}
+</style>
+</head>
+<body>
+
+  <!-- Rendered content, not a blank white flash. On a slow connection the
+       redirect may take a beat, and a scanner should see the brand rather than
+       an empty page and assume the code is broken. -->
+  <div>
+    <img src="/logo.svg" alt="Service Break">
+    <!-- NOSCRIPT FALLBACK. The redirect below is JavaScript; a scanner with JS
+         disabled would otherwise land here and stop. -->
+    <p><a href="/">Continue to Service Break &rarr;</a></p>
+  </div>
+
+<script>
+  /* QR-CARD · attribution by PATH, not by query string.
+     Plausible records the page path, so `/card` appears in Top Pages and Entry
+     Pages with no UTM parameters. That matters for the printed artefact: a UTM
+     string would roughly double the encoded URL length and push the QR from 29
+     modules to a denser grid, which at 20 mm on card stock is the difference
+     between scanning and not.
+
+     A QR scan carries NO REFERRER — the camera opens the URL cold — so Sources
+     will read Direct. ENTRY PAGES is the report that shows the scan, and `/card`
+     is the only thing that identifies it.
+
+     The 150 ms delay is deliberate and is the minimum that reliably lets the
+     Plausible request leave before navigation. Shorter risks losing the very
+     pageview this page exists to record; longer is a visible stall on a card
+     someone is holding.
+
+     `location.replace` rather than `location.href`: the back button should
+     return the visitor to wherever they were, not to this page, which would
+     bounce them forward again. */
+  setTimeout(function () { window.location.replace("/"); }, 150);
+</script>
+
+</body>
+</html>
