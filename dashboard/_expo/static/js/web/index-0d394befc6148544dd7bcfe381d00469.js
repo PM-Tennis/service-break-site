@@ -1,4 +1,4 @@
-__d(function(g,r,i,a,m,e,d){"use strict";Object.defineProperty(e,'__esModule',{value:!0});var t=r(d[0]);Object.keys(t).forEach(function(n){'default'===n||Object.prototype.hasOwnProperty.call(e,n)||Object.defineProperty(e,n,{enumerable:!0,get:function(){return t[n]}})})},663,[664]);
+__d(function(g,r,i,a,m,e,d){"use strict";Object.defineProperty(e,'__esModule',{value:!0});var t=r(d[0]);Object.keys(t).forEach(function(n){'default'===n||Object.prototype.hasOwnProperty.call(e,n)||Object.defineProperty(e,n,{enumerable:!0,get:function(){return t[n]}})})},664,[665]);
 __d(function(g,r,_i,a,m,_e,d){"use strict";Object.defineProperty(_e,'__esModule',{value:!0}),Object.defineProperty(_e,"deleteToken",{enumerable:!0,get:function(){return Ze}}),Object.defineProperty(_e,"getMessaging",{enumerable:!0,get:function(){return ze}}),Object.defineProperty(_e,"getToken",{enumerable:!0,get:function(){return Ye}}),Object.defineProperty(_e,"isSupported",{enumerable:!0,get:function(){return Le}}),Object.defineProperty(_e,"onMessage",{enumerable:!0,get:function(){return Xe}}),Object.defineProperty(_e,"onRegistered",{enumerable:!0,get:function(){return nt}}),Object.defineProperty(_e,"onUnregistered",{enumerable:!0,get:function(){return it}}),Object.defineProperty(_e,"register",{enumerable:!0,get:function(){return et}}),Object.defineProperty(_e,"unregister",{enumerable:!0,get:function(){return tt}});var e=r(d[0]),t=r(d[1]),n=r(d[2]),i=r(d[3]),o=r(d[4]);
 /**
    * @license
@@ -435,4 +435,4 @@ async function Le(){try{await(0,i.validateIndexedDBOpenable)()}catch(e){return!1
    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    * See the License for the specific language governing permissions and
    * limitations under the License.
-   */(0,o._registerComponent)(new t.Component('messaging',$e,"PUBLIC")),(0,o._registerComponent)(new t.Component('messaging-internal',We,"PRIVATE")),(0,o.registerVersion)(V,G),(0,o.registerVersion)(V,G,'esm2020')},664,[363,339,343,340,338]);
+   */(0,o._registerComponent)(new t.Component('messaging',$e,"PUBLIC")),(0,o._registerComponent)(new t.Component('messaging-internal',We,"PRIVATE")),(0,o.registerVersion)(V,G),(0,o.registerVersion)(V,G,'esm2020')},665,[363,339,343,340,338]);
