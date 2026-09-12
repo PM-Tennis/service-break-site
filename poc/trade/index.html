@@ -1,0 +1,69 @@
+<!DOCTYPE html><html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trade link POC — the dashboard's URL, nothing else</title>
+<style>
+body{font-family:-apple-system,Inter,sans-serif;background:#eef1ec;color:#01391F;margin:0;padding:20px 16px 60px}
+h1{font-size:18px;margin:0 0 6px}
+.sub{font-size:13px;color:rgba(1,57,31,.6);margin:0 0 16px;line-height:1.45}
+.box{background:#fff;border-left:3px solid #B7D906;padding:12px 14px;margin:0 0 16px;font-size:13px;line-height:1.5}
+.m{background:#fff;border:1px solid rgba(1,57,31,.18);border-radius:12px;padding:14px;margin-bottom:12px}
+.n{font-size:15px}.t{font-size:11px;color:rgba(1,57,31,.55);margin:2px 0 10px}
+.pill{display:inline-flex;align-items:center;gap:3px;height:24px;padding:0 12px;border:1px solid rgba(1,57,31,.2);border-radius:12px;background:#fff;color:#01391F;font-size:12px;text-decoration:none}
+.u{font-family:ui-monospace,monospace;font-size:10.5px;color:rgba(1,57,31,.55);margin-top:8px;word-break:break-all}
+.d{font-size:10.5px;color:rgba(1,57,31,.4);margin-top:6px;word-break:break-all}
+.d a{color:rgba(1,57,31,.5)}
+code{font-family:ui-monospace,monospace;font-size:12px}
+</style>
+<h1>Trade link POC — the dashboard's URL, nothing else</h1>
+<p class="sub">Six live matches from the engine. Each <b>Trade →</b> is
+<code>&lt;a href="https://polymarket.us/events/{us_slug}"&gt;</code> — the first branch of the
+dashboard's <code>rowTapTarget</code>, same tab, no target attribute. <b>No JavaScript on this page.</b>
+No OneLink, no AppsFlyer, no constructed URL.</p>
+<div class="box" style="border-left-color:#c0392b"><b>Open this in Safari, not in an in-app browser.</b><br>
+If you see an "Open Link — Cancel / Open" prompt when you tap, you are in a WebView and
+<b>universal links cannot fire there</b> — the app will never open on the match regardless of the URL.
+Tap the <b>···</b> menu and choose Open in Safari, or type the address into Safari directly.</div>
+<div class="box"><b>Tap a Trade →.</b><br>
+<b>Pass:</b> the PM app opens — on the match, or on its home page. Home is accepted (PA.11 ruling 3).<br>
+<b>Fail:</b> Safari loads the polymarket.us web page and the app never opens.<br><br>
+The grey <code>/sports/</code> link under each is the desktop branch, new tab — that one is known to work
+and shouldn't change.</p>
+
+<div class="m">
+  <div class="n">Lilian Marmousez v John Sperle</div><div class="t">Ch. · live</div>
+  <a class="pill" href="https://polymarket.us/events/itfme-lilmar-johspe-2026-09-12">Trade →</a>
+  <div class="u">polymarket.us/events/itfme-lilmar-johspe-2026-09-12</div>
+  <div class="d">desktop form (new tab): <a href="https://polymarket.us/sports/itfme/itfme-lilmar-johspe-2026-09-12" target="_blank" rel="noopener">/sports/itfme/itfme-lilmar-johspe-2026-09-12</a></div>
+</div>
+<div class="m">
+  <div class="n">Mate Valkusz v Jan Kupcic</div><div class="t">Ch. · live</div>
+  <a class="pill" href="https://polymarket.us/events/itfme-matval-jankup-2026-09-12">Trade →</a>
+  <div class="u">polymarket.us/events/itfme-matval-jankup-2026-09-12</div>
+  <div class="d">desktop form (new tab): <a href="https://polymarket.us/sports/itfme/itfme-matval-jankup-2026-09-12" target="_blank" rel="noopener">/sports/itfme/itfme-matval-jankup-2026-09-12</a></div>
+</div>
+<div class="m">
+  <div class="n">P. Schoen v J. Anthrop</div><div class="t">ITF · live</div>
+  <a class="pill" href="https://polymarket.us/events/itfme-patsch-jackant-2026-09-12">Trade →</a>
+  <div class="u">polymarket.us/events/itfme-patsch-jackant-2026-09-12</div>
+  <div class="d">desktop form (new tab): <a href="https://polymarket.us/sports/itfme/itfme-patsch-jackant-2026-09-12" target="_blank" rel="noopener">/sports/itfme/itfme-patsch-jackant-2026-09-12</a></div>
+</div>
+<div class="m">
+  <div class="n">Angelica Raggi v Marta Lombardini</div><div class="t">Ch. · upcoming</div>
+  <a class="pill" href="https://polymarket.us/events/itfwo-angrag-marlom-2026-09-12">Trade →</a>
+  <div class="u">polymarket.us/events/itfwo-angrag-marlom-2026-09-12</div>
+  <div class="d">desktop form (new tab): <a href="https://polymarket.us/sports/itfwo/itfwo-angrag-marlom-2026-09-12" target="_blank" rel="noopener">/sports/itfwo/itfwo-angrag-marlom-2026-09-12</a></div>
+</div>
+<div class="m">
+  <div class="n">D. Galfi v F. Ferro</div><div class="t">Ch. · upcoming</div>
+  <a class="pill" href="https://polymarket.us/events/wta-dalgal-fiofer-2026-09-12">Trade →</a>
+  <div class="u">polymarket.us/events/wta-dalgal-fiofer-2026-09-12</div>
+  <div class="d">desktop form (new tab): <a href="https://polymarket.us/sports/wta/wta-dalgal-fiofer-2026-09-12" target="_blank" rel="noopener">/sports/wta/wta-dalgal-fiofer-2026-09-12</a></div>
+</div>
+<div class="m">
+  <div class="n">Victoria Bosio v Lizette Cabrera</div><div class="t">WTA · upcoming</div>
+  <a class="pill" href="https://polymarket.us/events/wta-vicbos-lizcab-2026-09-12">Trade →</a>
+  <div class="u">polymarket.us/events/wta-vicbos-lizcab-2026-09-12</div>
+  <div class="d">desktop form (new tab): <a href="https://polymarket.us/sports/wta/wta-vicbos-lizcab-2026-09-12" target="_blank" rel="noopener">/sports/wta/wta-vicbos-lizcab-2026-09-12</a></div>
+</div>
+<p class="sub" style="margin-top:18px">Slugs verbatim from <code>/api/matches</code>, 6 of 127 available.
+If these open the app, SB ships exactly this URL and nothing more.</p>
+</html>
